@@ -1,0 +1,1 @@
+export const BaseUrl = "https://ielts-writing-evaluator-backend.vercel.app/";

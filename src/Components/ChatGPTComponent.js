@@ -3,10 +3,12 @@ import axios from "axios";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import './ChatGPTComponent.css'
+import {BaseUrl} from "../consistents";
 
 const ChatGPTComponent = () => {
     const [input, setInput] = useState("");
     const [response, setResponse] = useState("");
+    const apiKey = process.env.CHATGPT_API_KEY;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -18,10 +20,10 @@ const ChatGPTComponent = () => {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: 'http://localhost:8000/api/chatgpt/',
+            url: BaseUrl + "api/chatgpt/", //后端部署链接可以上传啊
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer sk-proj-KOO0yLy95niySUKGQzoKT3BlbkFJsfbxnN10v2mhHWCf9hY5'
+                'Authorization': 'Bearer' + apiKey //存在环境变量里面
             },
             data: data
         };
