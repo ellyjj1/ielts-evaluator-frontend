@@ -8,10 +8,12 @@ import {BaseUrl} from "../consistents";
 const ChatGPTComponent = () => {
     const [input, setInput] = useState("");
     const [response, setResponse] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     const apiKey = process.env.CHATGPT_API_KEY;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);// Start loading
 
         let data = JSON.stringify({
             "content": input,
@@ -23,7 +25,7 @@ const ChatGPTComponent = () => {
             url: BaseUrl + "api/chatgpt/", //后端部署链接可以上传啊
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer' + apiKey //存在环境变量里面
+                'Authorization': 'Bearer ' + apiKey //存在环境变量里面
             },
             data: data
         };
@@ -33,10 +35,12 @@ const ChatGPTComponent = () => {
                 console.log(JSON.stringify(response.data));
                 const formattedResponse = response.data.response.replace(/\n\n/g, '<br /><br />');
                 setResponse(formattedResponse);
+                setIsLoading(false); // Stop loading when success
                 // setResponse(response.data.response);
             })
             .catch((error) => {
                 console.log(error);
+                setIsLoading(false); // Stop loading when error
             });
 
     };
@@ -52,19 +56,29 @@ const ChatGPTComponent = () => {
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="Enter Your Wirtig Here"
                 />
-                <button className="submit-button" type="submit">Submit</button>
+                {/*<button className="submit-button" type="submit">Submit</button>*/}
+                <button className="submit-button" type="submit" disabled={isLoading}>
+                    {isLoading ? 'Loading...' : 'Submit'}
+                </button>
+
             </form>
             <div className="response-container">
                 <h3>Feedback of your writing:</h3>
-                <ReactQuill
-                    value={response}
-                    readOnly={true}
-                    theme="bubble"
-                    className="response-textarea"
-                />
+
+                {isLoading ? (
+                    <div className="loading-spinner">Loading...</div> // Loading spinner
+                ) : (
+
+                    <ReactQuill
+                        value={response}
+                        readOnly={true}
+                        theme="bubble"
+                        className="response-textarea"
+                    />
+                )}
             </div>
         </div>
-);
+    );
 };
 
 export default ChatGPTComponent;
