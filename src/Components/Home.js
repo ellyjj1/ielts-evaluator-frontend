@@ -1,14 +1,34 @@
-import React from 'react';
-import {Link} from "react-router-dom";
+import React from 'react'
+import Navbar from './Navbar'
+import BannerBackground from "../Assets/home-banner-background.png";
+import BannerImage from "../Assets/home-banner-image.png";
+import { FiArrowRight } from "react-icons/fi";
 
 function Home() {
-    return (
-        <div>
-            <h1>Welcome to IELTS Evaluator</h1>
-            <p>This tool helps you evaluate your IELTS writing tasks.</p>
-            <Link to="/chatgpt">Go to Magic 7+ to Evaluate Your Writing</Link>
+  return (
+    <div className='home-container'>
+        <Navbar/>
+        <div className='home-banner-container'>
+            <div className='home-bannerImage-container'>
+                <img src={BannerBackground} alt=""/>
+            </div>
+            <div className='home-text-section'>
+                <h1 className='primary-heading'>
+                Make All Your Dream Come True!
+                </h1>
+                <p className='primary-text'>
+                Achieve your dream IELTS Writing and unlock a world of opportunities, taking you wherever your heart desires!
+                </p>
+                <button className='secondary-button'>
+                Evaluate your IELTS Writing <FiArrowRight/>{""}
+                </button>
+            </div>
+            <div className='home-image-section'>
+                <img src={BannerImage} alt=''/>
+            </div>
         </div>
-    );
+    </div>
+  )
 }
 
-export default Home;
+export default Home

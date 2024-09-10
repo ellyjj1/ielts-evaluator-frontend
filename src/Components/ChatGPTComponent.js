@@ -1,9 +1,12 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import axios from "axios";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import './ChatGPTComponent.css'
-import {BaseUrl} from "../consistents";
+import { BaseUrl } from "../consistents";
+import Navbar from './Navbar';
+import BannerBackground from "../Assets/home-banner-background.png";
+
 
 const ChatGPTComponent = () => {
     const [input, setInput] = useState("");
@@ -32,7 +35,6 @@ const ChatGPTComponent = () => {
 
         axios.request(config)
             .then((response) => {
-                console.log(JSON.stringify(response.data));
                 const formattedResponse = response.data.response.replace(/\n\n/g, '<br /><br />');
                 setResponse(formattedResponse);
                 setIsLoading(false); // Stop loading when success
@@ -47,8 +49,11 @@ const ChatGPTComponent = () => {
 
     return (
         <div className="chatgpt-container">
-            <h1>Magic 7+</h1>
-            <p>Let's Evaluate Your Writing:</p>
+            <div className='home-bannerImage-container'>
+                <img src={BannerBackground} alt="" />
+            </div>
+            <Navbar />
+            <p className='font-sans text-xl'>Let's Evaluate Your Writing:</p>
             <form onSubmit={handleSubmit}>
                 <textarea
                     className="input-textarea"
@@ -56,14 +61,13 @@ const ChatGPTComponent = () => {
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="Enter Your Wirtig Here"
                 />
-                {/*<button className="submit-button" type="submit">Submit</button>*/}
-                <button className="submit-button" type="submit" disabled={isLoading}>
+                <button className="bg-orange-400 text-white px-4 py-2 rounded-md hover:bg-orange-600 disabled:bg-gray-400" type="submit" disabled={isLoading}>
                     {isLoading ? 'Loading...' : 'Submit'}
                 </button>
 
             </form>
-            <div className="response-container">
-                <h3>Feedback of your writing:</h3>
+            <div className="response-container mt-4" >
+                <p className='font-sans text-xl'>Feedback of your writing:</p>
 
                 {isLoading ? (
                     <div className="loading-spinner">Loading...</div> // Loading spinner
