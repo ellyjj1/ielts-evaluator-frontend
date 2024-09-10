@@ -12,6 +12,8 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info";
+import { Link } from "react-router-dom";
+
 
 
 const Navbar = () => {
@@ -20,10 +22,12 @@ const Navbar = () => {
     {
       text: "Home",
       icon: <HomeIcon />,
+      link: "/",
     },
     {
       text: "Evaluator",
       icon: <InfoIcon />,
+      link: "/chatgpt",
     },
   ];
   return (
@@ -32,8 +36,8 @@ const Navbar = () => {
         <img src={Logo} alt="" />
       </div>
       <div className="navbar-links-container">
-        <a href="/">Home</a>
-        <a href="/chatgpt">Evaluator</a>
+        <Link to="/">Home</Link>
+        <Link to="/chatgpt">Evaluator</Link>
       </div>
       <div className="navbar-menu-container">
         <HiOutlineBars3 onClick={() => setOpenMenu(true)} />
@@ -48,7 +52,11 @@ const Navbar = () => {
           <List>
             {menuOptions.map((item) => (
               <ListItem key={item.text} disablePadding>
-                <ListItemButton>
+                <ListItemButton
+                  component={Link}
+                  to={item.link} 
+                  onClick={() => setOpenMenu(false)} 
+                >
                   <ListItemIcon>{item.icon}</ListItemIcon>
                   <ListItemText primary={item.text} />
                 </ListItemButton>

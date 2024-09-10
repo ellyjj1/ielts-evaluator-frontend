@@ -8,11 +8,13 @@ import { useNavigate } from 'react-router-dom';
 
 
 function Home() {
-    const navigate = useNavigate();  // Get the navigate function from React Router
+
+    const navigate = useNavigate();  
 
     const handleClick = () => {
-        navigate('/chatgpt');  // Navigate to the desired route
+        navigate('/chatgpt');  
     };
+
     return (
         <div className='home-container'>
             <Navbar />

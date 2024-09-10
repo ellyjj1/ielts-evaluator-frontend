@@ -61,7 +61,7 @@ const ChatGPTComponent = () => {
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="Enter Your Wirtig Here"
                 />
-                <button className="bg-orange-400 text-white px-4 py-2 rounded-md hover:bg-orange-600 disabled:bg-gray-400" type="submit" disabled={isLoading}>
+                <button className="bg-rose-950 text-white px-4 py-2 rounded-md hover:bg-rose-800 disabled:bg-gray-400" type="submit" disabled={isLoading}>
                     {isLoading ? 'Loading...' : 'Submit'}
                 </button>
 
